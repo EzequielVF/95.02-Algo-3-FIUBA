@@ -1,0 +1,112 @@
+Objeto -> Una entidad que existe en tiempo de ejecucion y que puede enviar y recibir mensajes.
+un Objeto tiene "responsabilidades" algo asi como un contrato.
+
+Delegacion -> Cuando un objeto, para responder un mensaje, envia mensajes a otros objetos, decimos que delega ese comportamiento en otros objetos.
+
+Comportamiento -> Las posibles respuestas a los mensajes recibidos por un objeto.
+
+Metodo -> Es la implementacion de la respuesta de un objeto a un mensaje.
+
+Encapsulamiento -> Cada objeto es responsable a responder los mensajes que recibe, pero no necesariamente como lo hace.
+Esto permite que al cambiar partes de la implementacion las otras partes se mantengan funcionales.
+
+Tell, don´t ask -> Los objetos deben mantener su propio comportamiento, sin que manipulemos su estado desde afuera.
+
+Polimorfismo -> Capacidad de respuesta de diferentes objetos a un mismo mensaje.
+
+Clase -> Conjunto de objetos que, por lo menos, tienen el mismo comportamiento.
+
+Atributo -> Una Variable interna del objeto que sirve para almacenar parte del estado del mismo.
+
+Precondiciones -> En que estado debe estar el medio antes de que un objeto reciba un mensaje. -> Responsabilidad del cliente.
+
+Excepcion -> Una Excepcion es un objeto que el receptor de un mensaje envia a su cliente como aviso de que el propio cliente no esta cumpliendo
+con alguna precondicion de ese mensaje. Deberia definirse una por cada precondicion.
+
+Postcondiciones -> Estado en el que debe quedar el medio como consecuencia de la ejecucion de un metodo. -> Responsabilidad del programador (chequearse con pruebas).
+
+Pruebas Unitarias -> Una prueba unitaria es una prueba que verifica que se responde claramente a una unica responsabilidad de un metodo.
+                -> Las pruebas unitarias nunca pueden ser suficientes para controlar la calidad de un producto.
+
+Invariantes -> Condiciones que siempre deben cumplir un objeto durate su existencia.
+
+TDD -> Test-Driver Development
+    -> Pruebas primero -> las pruebas se convierten en especificaciones de lo que se espera como respuesta del objeto ante el envio de un mensaje -> siempre actualizadas (buena documentacion).
+    -> Minimiza el condicinamiento del autor.
+    -> Permite especificar el comportamiento independientemente de la implementacion.
+    -> Deja un conjunto de pruebas de regresion.
+
+POO -> sirve para manejar la complejidad
+    -> Encapsulamiento  --> Cada componente debe tener el comportamiento esperado. --> Nuestro desarrollo no depende de la manera en que esta implementado.
+    -> Contratos     +  --> que nos ofrece cada componenente y como conectarnos con el.
+    ---> ABSTRACCION
+
+Objeto receptor -> aquel que recibe un mensaje en un escenario de interaccion entre objetos.
+
+Objeto cliente -> aquel que envia un mensaje en un escenario de interaccion entre objetos.
+
+Dependencia -> Un Objeto depende de otro cuando debe conocerlo para poder enviarle un mensaje
+            Tipos
+            -> El objeto se envia como argumento.
+            -> Se obtiene como respuesta al envio de un mensaje.
+            -> Asociacion -> Forma de dependencia en la que el cliente tiene almacenada una referencia al servidor.
+
+Programacion por diferencia -> Cuando indicamos que parte de la implementacion de un objeto esta definida en otro objeto, y por lo tanto solo implementamos las diferencias especificas.
+                            -> Esto se llama Herencia -> es una relacion entre clases
+
+Herencia y POO  -> Si hay un comportamiento en la clase madre, sus clases hijas pueden usar ese comportamiento.
+                -> Se necesitala condicion "es un"
+                -> Composicion/agregacion
+
+Redefinicion -> Para Implementar de modo diferente la respuesta a un mismo mensaje.  
+
+Clases abstractras  -> no pueden tener instancias en forma directa.
+                    -> clases para agrupar comportamientos y luego aplicar herencia.
+
+Metodos abstractos  -> No lo implementamos en una clase
+                    -> Pero deseamos que todas las clases descendientes puedan entender el mensaje.
+
+Visibilidad -> Importante para garantizar encapsulamiento.
+            -> Atributos y metodos privados -> solo los puede usar el objeto receptor en su clase.
+            -> Atributos y metodos publicos -> se los puede usar desde cualquier lado.
+            -> Atributos y metodos protegidos -> se los puede usar desde el objeto receptor en su clase y en clase derivadas.
+
+            Smalltalk -> metodos publicos / atributos protegidos.
+
+Vinculacion tardia y polimorfimos -> Se plantea que el polimorfismo funciona porque la decision del metodo a invocar se toma en tiempo de ejecucion y no antes.
+
+Interfaz -> Son como clases 
+            -> abstractras
+            -> solo metodos abstractos
+            -> sin atributos
+
+Protocolos -> Son grupos de firmas de metodos
+            -> indican la manera de comunicarse con los objetos
+
+Entropia creciente -> todo codigo va empeorando su calidad con el tiempo.
+
+Refactorizacion -> mejorar codigo, haciendolo mas comprensible sin cambiar funcionalidad.
+                -> modificar estructura interna sin modificar comportamiento observable.
+                -> Eliminar codigo duplicado
+                -> introducir polimorfismo
+¿cuando?                    -> antes de modificar codigo existente
+                            -> despues de incorporar nueva funcionalidad
+                            -> antes de optimizar
+                            -> durante depuraciones
+                            -> consecuencia de revisiones de codigo
+
+Bad smells in code -> son indicadores de que algo esta mal, y se solucionan con refactorizaciones.
+
+Generacidad solo en tiempo de compilacion -> no hay informacion del tipo completa en tiempo de ejecucion.
+        -> Lleva la idea del tipeo estatico a las colecciones.
+
+UML -> herramienta de modelo
+    -> para discutir diseños antes del codigo
+    -> para generar documentos que sirvan despues de la construccion
+
+XP -> EXTREME PROGRAMMING
+    -> llevar al extremo las buenas practicas de programacion y de sentido comun.
+    -> Pair PROGRAMMING
+    -> revisar codigo todo el tiempo
+    -> minimizar la documentacion que se guarda
+    
