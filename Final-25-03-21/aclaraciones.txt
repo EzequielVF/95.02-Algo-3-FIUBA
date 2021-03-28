@@ -1,0 +1,17 @@
+--Aclaraciones--
+
+1. Use coordenadas en trayecto para simular las localizaciones de inicio y de llegada, la verdad que no se me ocurrio otra manera de representar las direcciones, lo bueno como
+    esta bien encapsulado esto podra ser cambiado en el futuro sin tener que alterar el modelo.
+
+2. Agregue un diagrama de secuencia mas en donde se ve como se crearia un paquete y como se le irian agregando las partes, para que el modelo entregado sea mas entendible y tenga
+    mas detalles.
+
+3. En mi solucion no lo aplique, pero podria aplicarse el patron de diseño Composite para la parte de "Adicionales" que seria la parte de envoltorios y marcas, no lo aplique porque
+    para el modelo pedido no era necesario, pero en caso de que se quiera apliar con mucha funcionalidad esta parte de adicionales, el uso de este patron seria beneficioso.
+
+4. En la solucion no se tuvieron en cuenta cosas, como si por ejemplo llevar un paquete con baterias de litio variara con la distancia (por ejemplo que hubiera que estabilisarlas para que
+    no explotansen), ante este tipo de cosas, la solucion se encontraria cerrada, se penso en que estos calculos de costos eran independientes del trayecto.
+
+5. Se creo la clase SinAdicional para facilitar el caso que no existieran adicionales.
+
+6. Como en ningun momento se hablo del "contenido" del paquete este no parece en el modelo.

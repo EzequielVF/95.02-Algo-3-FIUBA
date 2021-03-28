@@ -1,0 +1,901 @@
+Design Principles Behind Smalltalk
+Daniel H. H. Ingalls
+
+* Dominio Personal: Si un sistema es para servir al espiritu creativo, debe ser completamente entendible para un
+individuo solitario.
+
+* Buen Diseño: Un sistema deberia ser construido con un minimo de partes no modificables, estas partes deberian ser 
+tan generales como sea posible y mantenidas en un esquema uniforme.
+
+* Proposito: Se busca que en vez de hablar el idioma de la maquina, la maquina entienda nuestro idioma.
+
+* Alcance: El diseño de un lenguaje para usar computadoras debe tratar con modelos internos, medios externos, y 
+con la interaccion entre ellos tanto en el humano como en la computadora.
+
+* Objetos: Un lenguaje debe soportar el concepto de "Objeto" y proveer una manera uniforme de referirse a los 
+objetos del universo.
+
+* Administracion del almacenamiento: Para ser cosiderado como "Orientado a objetos" debe ser capaz de brindar una
+administracion automatica del almacenamiento.
+
+* Mensajes: Se busca que en vez de un compilador reuna la informacion necesaria, tener un universo de objetos
+comunicandose entre si.
+
+* Metafora uniforme: Un lenguaje deberia ser diseñado alrededor de una metafora poderosa que pueda ser aplicada
+uniformemente en todas las areas. ej "Todo es un objeto"
+
+* Modularidad: Ningun componente en un sistema complejo deberia depender de los detalles internos de otro componente.
+
+* Clasificacion: Un lenguaje debe proveer un medio para clasificar objetos similares, y para agregar nuevas clases
+de objetos en pie de igualdad con las clases centrales del sistema.
+
+* Polimorfismo: Un programa solo deberia especificar su comportamiento, no su representacion.
+
+* Factorizacion: Cada componente independiente del sistema solo deberia aparecer en un solo lugar.
+
+* Reaprovechamiento: Cuando un sistema esta bien factorizado, un gran reaprovechamiento esta disponible tanto para los
+usuarios como para los implementadores.
+
+* Maquina virtual: Una especificacion de maquina virtual establece un marco para la aplicacion de tecnologia.
+
+* Principio reactivo: Cada componente accesible al usuario deberia representarse de una manera entendible para ser 
+observado y manipulado.
+
+* Sistema operativo: Coleccion de cosas ajenas a un lenguaje, no deberia existir:
+    - Sistema de archivos
+    - Administracion del almacenamiento
+    - Manejo de la pantalla
+    - Entrada del teclado
+    - Acceso  a subsistemas
+    - Debugger
+---------------------------------------------------------------------------------------------------------------------
+"Unit Testing Guidelines", Petroware SA
+
+* Mantener las pruebas pequeñas y claras
+* Las pruebas deben ser automaticas y no interactivas
+* Deben ser faciles de correr
+* Arreglar las pruebas que fallaron inmediatamente
+* Mantenerse testeando a un nivel unitario (1 clase de prueba x cada clase ordinaria)
+* Una prueba simple es mejor que nada
+* Cada prueba debe ser independiente
+* Debe ser facil de relacionar lo probado con la prueba misma
+* Evitar hacer pruebas de metodos privados
+* Trata la clase como si fuera caja negra
+* Trata la clase como si fuera caja blanca
+* Proba los casos triviales
+* Centrarse primero en la cobertura de ejecucion
+* Observar y cubrir los casos limites
+* Generar un proveedor ramdon
+* Usar afirmaciones explicitas
+* Probar con pruebas con valores negativos
+* Diseñar el codigo teniendo en cuenta las pruebas
+* Las pruebas no deben necesitar recursos externos para funcionar
+* Conocer el costo delas pruebas
+* Priorizar las pruebas
+* Preparar el codigo para fallas
+* Si aparece un bug, escribe pruebas para recrearlo
+* Conoce las limitaciones
+    - Las pruebas unitarias nunca pueden probar la correctes del codigo
+    - Son buenas como documentacion -> siempre estan actualizadas
+---------------------------------------------------------------------------------------------------------------------
+Chapter 1 - What Is the Point of Test-Driven Development?, Addison-Wesley - 2011
+
+* El desarrollo de software es como un proceso de aprendizaje
+    - Casi en todos se intenta hacer algo que almenos nadie en la organizacion a hecho antes.
+    - Se suelen aprender como funcionan algunos componentes nuevos durante el proceso.
+    - Ademas, todos los que participan en el proyecto deben colaborar entre si.
+
+* La retroalimentacion es fundamental
+    - En cada ciclo el equipo añade nuevas caracteristicas y recibe informacion sobre la cantidad y la calidad
+    del trabajo realizado.
+    - Bucles internos y externos
+
+* Desarrollo incremental e iterativo
+    - El desarrollo incremental construye un sistema caracteristica a caracteristica, en lugar de construir
+    todas las capas y componentes y las integra al final. cada caracteristica se implementa como una piesa a traves
+    de todas las partes relevantes del sistema.
+    - El desarrollo iterativo perfecciona progresivamente la implementacion de las caracteristicas en
+    respuesta a la retroalimentacion.
+
+* Practicas que apoyan el cambio
+    - Pruebas automaticas (aveces se ve como trabajo no "real")
+    - Codigo simple (refactorizacion constante)
+    - El TDD da vuelta esto, ya que escribimos nuestras pruebas antes que el codigo.
+
+* TDD Resumido
+    - Prueba -> codigo que la pase -> refactorizar codigo anterior -> repetir
+    - Escribir las pruebas primero
+        + Nos hace aclarar los criterios de aceptacion del siguiente trabajo
+        + Nos anima a escribir componenentes poco acoplados, para que puedan ser facilmente probados en forma aislada
+            y combinarse entre si.
+        + Añade una descripcion ejecutable de lo que hace el codigo.
+        + Añade una suite de regresion completa.
+        + Detecta los errores mientras el contexto esta fresco en nuestra mente.
+        + Nos permite saber cuando hemos hecho suficiente evitando la implementacion de caracteristicas innnecesarias.
+    - NUNCA ESCRIBAS UNA NUEVA FUNCIONALIDAD SIN UNA PRUEBA QUE FALLE
+
+* Refactorizacion
+    - Cambiar la estructura interna de un cuerpo de codigo existente sin cambiar su comportamiento.
+    - Objetivo -> mejorar codigo -> mas facil de mantener
+    - ¿Como funciona? -> mini transformacion -> verificar que todo siga funcionando -> repetir
+    - La refactorizacion es una "microtecnica" -> mejoras a pequeña escala
+    - refactorizacion es diferente a rediseño.
+
+* La imagen mas grande
+    - Es tentador comenzar el TDD con pruebas unitarias, es mejor que nada, perosigue siendo erroneo
+    - Hay que comenzar con unaprueba de aceptacion, que prueba la caracteristica que queremos añadir
+    - Con la prueba vemos si realmente necesitamos el codigo que estamos a punto de escribir
+    - Luego por debajo de la prueba de aceptacion vamos con el ciclo unit test-refactor
+    - Las pruebas unitarias nos ayuda a mantener la calidad del codigo
+
+* Pruebas de extremo a extremo
+    - Las pruebas de aceptacion deben ejercitar el sistema de extremo a extremo sin llamar a su codigo interno.
+        Debe interactuar con el desde el exterior, emulando un tercero.
+    - Un sistema es despegable cuando todas las pruebas de aceptacion pasan.
+
+* Niveles de pruebas
+    - Aceptacion -> ¿Funciona todo el sistema?
+    - Integracion -> ¿Funciona nuestro codigo que no podemos cambiar?
+    - Unitario -> ¿Nuestro objetos hacen lo correcto, son convenientes para trabajar?
+
+* Calidad externa e interna
+    - Calidad externa -> lo que bien que satisface las necesidades de sus clientes y usuarios.
+    - Calidad interna -> lo que bien que satisface las necesidades de sus desarrolladores y administradores,
+        lo facil que sea realizar cambios de forma segura y predecible, evitar "reajustes importantes"
+
+    - La ejecución de pruebas de extremo a extremo nos informa sobre la calidad externa de nuestro sistema, y
+        escribirlas nos dice algo sobre lo bien que entendemos (todo el equipo) el
+        el dominio, pero las pruebas de extremo a extremo no nos dicen lo bien que hemos escrito el código.
+    - Escribir pruebas unitarias nos da mucha información sobre la calidad de nuestro código, y
+        y su ejecución nos dice que no hemos roto ninguna clase, pero, de nuevo, las pruebas unitarias
+        no nos dan suficiente confianza en que el sistema en su conjunto funciona. 
+    - Las pruebas unitarias exhaustivas nos ayudan a mejorar la calidad interna porque, para ser
+        una unidad tiene que estar estructurada para ejecutarse fuera del sistema en un dispositivo de prueba.
+    
+    - Una prueba unitaria para un objeto tiene que crear el objeto, proporcionar sus dependencias, interactuar
+        con él y comprobar que se comporta como se espera. Por lo tanto, para que una clase sea fácil
+        de probar unitariamente, la clase debe tener dependencias explícitas que puedan ser fácilmente sustituidas y
+        responsabilidades claras que puedan ser fácilmente invocadas y verificadas. En términos de ingeniería de software, 
+        esto significa que el código debe estar poco acoplado y altamente
+
+    - Cuando nos equivocamos, cuando una clase, por ejemplo, está fuertemente acoplada a
+        partes distantes del sistema, tiene dependencias implícitas, o tiene demasiadas o poco claras
+        responsabilidades poco claras-nos resulta difícil escribir o entender las pruebas unitarias, por lo que escribir una
+        escribir una prueba primero nos da una valiosa e inmediata retroalimentación sobre nuestro diseño.
+
+* Acoplamiento y cohesion
+    - El acoplamiento y la cohesión son métricas que describen (a grandes rasgos) lo fácil que será
+        cambiar el comportamiento de un código.
+    - Los elementos están acoplados si un cambio en uno de ellos fuerza un cambio en el otro.
+    - Si montamos un sistema a partir de piezas separadas, tendría un bajo acoplamiento
+        y podríamos simplemente cambiar el receptor. Los elementos "poco acoplados" (es decir, aquellos
+        con bajo acoplamiento) son más fáciles de mantener.
+---------------------------------------------------------------------------------------------------------------------
+"8 Principles of Better Unit Testing", Dror Helper
+
+* Saber que estas probando
+* Una prueba unitaria debe ser autosuficiente
+* Una prueba unitaria que falla aveces no sirve
+* Buena convencion de denominacion a las pruebas
+* No pasa nada en repetir codigo si esto evitar oscurecer la prueba
+* Probar funcionalidad no implementacion
+* Evitar pruebas con exceso de especificaciones
+* Intentar crear un entorno aislado para las pruebas
+---------------------------------------------------------------------------------------------------------------------
+"The Art of Enbugging", Andy Hunt & Dave Thomas
+
+Los bugs no aparecen solos -> Nosotros los ponemos en el codigo
+
+¿Como evitarlo?
+- Escribir codigo "timido" que no revele demasiado de si mismo a los demas y que no hable con los demas mas de lo
+necesario.
+- Este codigo se mantienen a si mismo y no esta vinculado a otras cosas.
+
+Codigo procedimiental -> Tiende a obtener informacion y luego tomar deciones basadas en la informacion
+Codigo OO -> Le dice a los objetos que hagan cosas
+
+- En el codigo timido no se deberian tomar decisiones basadas en el estado del objeto llamado y luego cambiar el estado,
+esto viola el encapsulamiento y proporciona terreno acto para "bugs"
+- Separacion entre comandos y consultas
+
+"Law of demeter for functions"
+Un objeto solo debe llamar a:
+- A si mismo
+- Cualquier parametro que se haya pasado al metodo
+- Cualquier objeto que haya creado
+- Cualquier componente que tenga directamente los objetos
+---------------------------------------------------------------------------------------------------------------------
+"GetterEradicator", Martin Fowler
+
+- Tener cuidado con los casos en los que algun codigo invoca mas de un metodo en el mismo objeto
+- Cuidado con las clases de datos anemicas
+- Aveces son necesarios en situaciones donde los objetos necesitan colaborar intercambiando datos
+- Una buena regla general es que las cosas que cambian juntas debe estar juntas.
+---------------------------------------------------------------------------------------------------------------------
+"Replace Conditional With Polymorphism", SourceMaking
+
+¿Por que refactorizar?
+Esta tecnica de refactorizacion puede ayudar si su codigo contiene operadores que realizan varias tareas que varian en funcion de:
+- Clase del objeto o interfaz que implementa
+- El valor  de un campo del objeto 
+- Resultado de la llamada a uno de los metodos de un objeto
+
+Si aparece una nueva propiedad o tipo de objeto, tendra que buscar y añadir codigo en todos los condicionales similares
+por lo tanto, el beneficio de esta tecnica se multiplica si hay multiples condicionales dispersos en todos los metodos
+de un objeto.
+
+Ventajas:
+- Adhiere al Tell don´t ask
+- Elimina el codigo duplicado
+- Facilita añadir nueva funcionalidad
+
+¿Como refactorizar?
+- Tener una jerarquia de clases lista que contenga comportamientos alternativos
+- remplazar el codigo de tipo con subclases
+- Sustituir el codigo de tipo por estado/estrategia
+---------------------------------------------------------------------------------------------------------------------
+"What's a Model For?", Martin Fowler
+
+    - Un modelo UML no vale nada solo, su valor se aprecia cuando este transmite mayor comprension del codigo que representa.
+    - Modelo cuerpo completo vs modelo esqueletico
+    - Modelo esqueletico 
+        + El que conoce el modelo considera que es importante
+        + Mas facil de mantener
+        + Facilita el entendimiento
+        + Si se quieren mas detalles siempre se pueden buscar en el codigo
+---------------------------------------------------------------------------------------------------------------------
+"Pruebas de software", Carlos Fontela
+
+    - Las pruebas no confieren calidad al codigo, su objetivo es detectar errores
+¿Que probamos?
+    - Verificacion -> controlar que hayamos construido el producto tal como pretendimos construirlo.
+    - Validacion -> controla que hayamos construido el producto que nuestro cliente queria.
+    - Pruebas funcionales -> Hay pruebas centradas en probar funcionalidades, cosas que el programa debe hacer. Estas
+        pruebas surgen de modo natural de los requerimientos que el usuario expresa.
+    - Pruebas de atributos de calidad -> Pero en ocasiones ocurre que debemos probar características del sistema que no son
+        funcionales.
+
+        +ej: 
+            + El programa debe correr en las dos plataformas que soporten la mayor cantidad de
+                dispositivos en uso en América Latina.
+            + El tiempo de respuesta del juego no puede ser superior a 1 segundo.
+
+        + Clasificaciones
+
+            = Pruebas de compatibilidad: chequean las diferentes configuraciones de hardware o de
+                red y de plataformas de software que debe soportar el producto.
+
+            = Pruebas de rendimiento: evalúan el rendimiento del sistema (velocidad de respuesta,
+                uso de memoria) en condiciones de uso habitual.
+
+            = Pruebas de resistencia o de estrés: comprueban el comportamiento del sistema ante
+                situaciones donde se demanden cantidades extremas de recursos (por ejemplo: número
+                de transacciones simultáneas anormal, excesivo uso de la memoria, redes
+                sobrecargadas, etc.).
+
+            = Pruebas de seguridad: comprueban que sólo los usuarios autorizados puedan acceder a
+                las funcionalidades que les corresponden y que el programa se mantenga estable ante
+                intentos de vulnerar la seguridad del mismo.
+
+            = Pruebas de recuperación: chequean que el programa se recupere correctamente luego
+                de una falla.
+
+            = Pruebas de instalación: verifican que el sistema puede ser instalado satisfactoriamente
+                en el equipo del cliente, incluyendo todas las plataformas y configuraciones de
+                hardware previstas.
+
+Alcance de las pruebas
+    - Las pruebas unitarias verifican pequeñas porciones de código. En el paradigma de objetos,
+        por ejemplo, verifican alguna responsabilidad única de un método, como una única
+        postcondición. Se trata de pruebas que ejecutan los programadores para ver que lo que acaban
+        de escribir hace lo que ellos pretendían. Luego de un lapso corto de programación, se debería
+        ejecutar alguna prueba unitaria que compruebe que vamos por el camino correcto.
+
+    - Las pruebas de integración, en cambio, prueban que varias porciones de código, trabajando
+        en conjunto, hacen lo que pretendíamos. Por ejemplo, en el paradigma de objetos, se trata de
+        pruebas que involucran varios métodos, o varias clases, o incluso subsistemas enteros.
+
+    - Decimos que una prueba es de caja negra cuando la ejecutamos sin mirar el código que
+        estamos probando. Se trata más bien de una prueba ciega, que toma el código a probar como
+        algo cerrado, que ante ciertos estímulos realiza determinadas acciones. Cuando, en cambio,
+        analizamos el código durante la prueba, decimos que es una prueba de caja blanca.
+
+    - Una prueba de verificación de caja blanca que ha caído en desuso es la llamada prueba de
+        escritorio. En ella, el programador da valores a ciertas variables y recorre mentalmente el
+        código, ayudándose con anotaciones en papel, para ver que se comporta como él espera.
+
+    - Pruebas de aceptación de usuarios -> En general, se suele trabajar con pruebas de aceptación diseñadas por usuarios – o al menos
+        en conjunto con usuarios, o en el caso extremo, diseñadas por el equipo de desarrollo y
+        validadas por usuarios – pero que ejecuta el equipo de desarrollo
+
+    - No obstante, cuando un sistema debe salir a producción y tiene cierta criticidad, se suele
+        poner a disposición de usuarios reales para que ellos mismos ejecuten las pruebas. Si las
+        pruebas las hacemos en un entorno controlado por el equipo de desarrollo, las llamamos
+        pruebas alfa. Si, en cambio, el producto se deja a disposición del cliente para que lo pruebe
+        en su entorno, las llamamos pruebas beta.
+
+    - Hay ocasiones en que deseamos probar solamente
+        comportamiento, en el sentido de que la lógica de la aplicación es correcta, pero sin interfaz
+        de usuario. A estas pruebas más limitadas las denominamos pruebas de comportamiento
+    
+Pruebas en produccion -> se puede también poner el sistema en producción y esperar a ver qué errores
+    surgen o qué problemas encuentran los usuarios. A esto lo llamamos realizar las pruebas en
+    producción.
+
+                    mayor costo
+
+                    / Pruebas UI \
+                / Pruebas de comportamiento \
+            /   Pruebas de integracion        \
+        /       Pruebas unitarias               \
+
+                    menor velocidad
+
+Roles del desarrollo ante las pruebas
+    - Visiones tradicionales
+        + debe haber programadores y testers
+        + roles separados
+
+    - Vision agil
+        + todos son parte del mismo equipo
+        + todos son desarrolladores
+
+Pruebas automatizadas   
+    - pruebas unitarias -> escritas y ejecutadas por los programadores
+    - pruebas de integracion -> escritas por programadores y ejecutadas oir servidores de integracion
+    - pruebas decomportamiento -> a mitad de camino entre programadores y testers
+    - UAT -> usuarios o analistas de negocio -> sino los testers
+
+Pruebas manuales
+    - alguna UAT
+    - no tienen que ser escritas por programadores
+    - desarrolladas por analistas y testers
+
+Pruebas y desarrollo
+    - desarrollo ->  análisis, diseño, programación, pruebas, despliegue, etc.
+    - ¿Cuando probar? -> cada vez que se incorporan características a un programa, podemos provocar que
+        dejen de funcionar cosas que ya habían sido probadas y entregadas: esto es lo que se llama una regresión.
+        Para evitarlas, se ejecutan cada tanto, pruebas de regresión, que no es otra
+        cosa que ejecutar las pruebas de todo el sistema a intervalos regulares: por supuesto que la
+        automatización ayuda mucho a hacer estas pruebas de regresión más llevaderas.
+
+Ventajas de la automatización
+    - Nos independizamos del factor humano, con su carga de subjetividad y variabilidad en el tiempo.
+    - Es más fácil repetir las mismas pruebas, con un costo ínfimo comparado con las
+        pruebas realizadas por una persona. Esto es aplicable a regresiones, debugging y
+        errores provenientes del sistema ya en producción. 
+    - Las pruebas en código, escritas con las herramientas adecuadas, sirven como
+        herramienta de comunicación, minimizando las ambigüedades.
+
+Ventajas TDD
+    - Las pruebas en código sirven como documentación del uso esperado de lo que se está
+        probando, sin ambigüedades.
+    - Las pruebas escritas con anterioridad ayudan a entender mejor lo que se está por
+        desarrollar.
+    - Las pruebas escritas con anterioridad suelen incluir más casos de pruebas negativas
+        que las que escribimos a posteriori.
+    - Escribir las pruebas antes del código a probar minimiza el condicionamiento del autor
+        por lo ya construido. También da más confianza al programador sobre el hecho de que
+        el código que escribe siempre funciona.
+    - Escribir las pruebas antes del código a probar permite especificar el comportamiento
+        sin restringirse a una única implementación.
+    - La automatización permite independizarse del factor humano y facilita la repetición de
+        las mismas pruebas a un costo menor.
+    - La refactorización constante facilita el mantenimiento de un buen diseño a pesar de los
+        cambios que, en caso de no hacerla, lo degradarían.
+
+BDD -> (Behavior Driven Development) [North 2006]: inicialmente surgió como una
+    práctica para hacer bien TDD y fue convergiendo a una manera de especificar el
+    comportamiento esperado mediante escenarios concretos que se puedan automatizar
+    como pruebas de aceptación.
+
+STDD -> (Storytest Driven Development) [Mugridge 2008]: es una práctica que pretende
+    construir el software basándose en ir haciendo pasar las pruebas de aceptación – que
+    se pretenden automatizadas – que acompañan las historias de usuario
+
+ATDD -> (Acceptance Test Driven Development) [Koskela 2007, Gärtner 2012]: similar
+    a la anterior, construye el producto en base a pruebas de aceptación de usuarios, con
+    menos énfasis en la automatización de las pruebas y más en el proceso en sí
+
+SBE -> (Specification By Example) [Adzic 2009, 2011]: presentada originalmente como
+    una práctica para mejorar la comunicación entre los distintos roles de un proyecto de
+    desarrollo, ha ido convirtiéndose en una práctica colaborativa de construcción basada
+    en especificaciones mediante ejemplos que sirven como pruebas de aceptación.
+
+- Desde el punto de vista del uso, podemos considerar a las cuatro prácticas como sinónimos,
+    sobre todo porque en todos los casos se parte de ejemplos que sirven tanto como
+    especificaciones del usuario, guías para el desarrollo y casos de aceptación a probar.
+
+- Estas técnicas usan un enfoque de afuera hacia adentro, partiendo de funcionalidades y sus
+    casos de aceptación para luego ir refinando el diseño. En definitiva, por cada prueba de
+    aceptación que debemos encarar, hay que hacer varios ciclos de desarrollo basados en pruebas
+    unitarias y de integración técnicas.
+
+- Por supuesto, al ir avanzando el desarrollo, las pruebas técnicas van a terminar cubriendo el
+    mismo código que las pruebas de aceptación que las motivaron. De todas maneras, esto dista
+    de ser un problema, pues la coexistencia de pruebas a distintos niveles va a facilitar el
+    mantenimiento del sistema, sea cuando hay que realizar cambios de comportamiento o cuando
+    haya que hacer grandes refactorizaciones. Por eso, es una buena idea mantener
+    todas las pruebas, aun cuando haya redundancia en la cobertura: a lo sumo, si muchas pruebas
+    implican mucho tiempo de ejecución de las mismas, se puede no ejecutar todas las pruebas en
+    todas las integraciones, siguiendo las ideas de Test Impact Analysis.
+
+Integración y entrega continuas
+    -  Integracion continua (CI)
+        Básicamente consiste en realizar la compilación,
+        construcción y pruebas del producto en forma sucesiva y automática como parte de la
+        integración. Las integraciones deben terminar siempre en el tronco principal de la herramienta
+        de control de versiones y – al haber sido hechas luego de ejecutar las pruebas – se presume
+        que están libres de errores.
+    - Entrega continua (CD)
+        Mientras que en CI la línea de automatización termina con una integración en el ambiente de desarrollo, CD
+        pretende que el código siempre esté en condiciones de ser desplegado en el ambiente
+        productivo. Por lo tanto, debemos incluir todas las pruebas de aceptación que se puedan
+        automatizar. Como las pruebas de aceptación suelen ser más lentas de ejecutar que las pruebas
+        unitarias, se puede ser más laxo en cuanto a la frecuencia de las ejecuciones de las mismas,
+        pero en ese caso deben hacerse al menos una vez al día, en conjunto con las pruebas manuales
+        que no se puedan automatizar.
+    - Despliegue continuo 
+        no sólo pretende que se esté permanentemente en condiciones de desplegar, sino que efectivamente cada pequeño
+        cambio se despliegue en el ambiente de producción. Debido a la necesidad de desplegar en
+        forma tan frecuente, suele descansar en ejecuciones sistemáticas de pruebas en producción.
+    Con estas prácticas se disminuye el riesgo de la aparición de errores en las pruebas, porque
+    cualquier problema que surja es atribuible al último tramo de código desarrollado e integrado.
+
+¿Como se diseña una prueba?
+    Pruebas unitarias -> Caja negra -> como si fueramos el que las va a usar
+        - establecer pre y post condiciones (cada post deberia definir una prueba)
+    
+    Diseño de pruebas de cliente
+    - Si la prueba debe chequear un requisito del cliente, y dado que éste debe colaborar en
+        escribirla, es bueno usar la técnica de especificar con ejemplos, para los cuales el rol del
+        programador suele ser el de quien puede prever las clases de equivalencia y valores
+        especiales, y pide ejemplos para cada caso.
+        En términos de requerimientos de software, pensaríamos que al menos tiene que haber una
+        prueba para el escenario típico, una para cada flujo de excepción y una para cada flujo
+        alternativo.
+
+Cobertura
+    - Llamamos cobertura al grado en que los casos de pruebas de un programa llegan a recorrer
+        dicho programa al ejecutar las pruebas. Se la suele denominar tanto “cobertura de pruebas”
+        como “cobertura de código”. 
+
+    - Se usan como una medida, aunque no la única, de la calidad de las pruebas: a mayor
+        cobertura, las pruebas del programa son más exhaustivas, y por lo tanto existen menos
+        situaciones que no están siendo probadas. No obstante, no hay que confundir con la calidad
+        del programa: la cobertura mide sólo la calidad de las pruebas, indirectamente, y sólo
+        subsidiariamente afecta la calidad del programa.
+---------------------------------------------------------------------------------------------------------------------
+"Continuous Integration", Martin Fowler
+
+Integracion continua
+    - La integración continua es una práctica de desarrollo de software en la que los miembros de un equipo integran 
+        su trabajo con frecuencia, por lo general cada persona integra al menos diariamente, lo que lleva a múltiples integraciones 
+        por día. Cada integración se verifica mediante una compilación automatizada (que incluye pruebas) para detectar los errores 
+        de integración lo antes posible. Muchos equipos encuentran que este enfoque conduce a una reducción significativa de 
+        los problemas de integración y permite a un equipo desarrollar software cohesivo más rápidamente.
+
+Prácticas de integración continua
+    - Mantener un único repositorio de fuentes
+        + Los proyectos de software implican muchos archivos que necesitan ser orquestados juntos para construir un producto. 
+            Hacer un seguimiento de todos ellos supone un gran esfuerzo, especialmente cuando hay varias personas implicadas. 
+            Así que no es de extrañar que, a lo largo de los años, los equipos de desarrollo de software hayan creado herramientas 
+            para gestionar todo esto. Estas herramientas -llamadas herramientas de gestión del código fuente, gestión de la configuración, 
+            sistemas de control de versiones, repositorios o varios nombres más- son una parte integral de la mayoría de los proyectos de desarrollo.
+        + Un error común que veo es que no ponen todo en el repositorio. Si la gente usa uno pondrá el código allí, pero todo lo que necesitas para hacer 
+            una construcción debería estar allí, incluyendo: scripts de prueba, archivos de propiedades, esquema de base de datos, scripts de instalación 
+            y bibliotecas de terceros.
+        + Una de las características de los sistemas de control de versiones es que permiten crear múltiples ramas, para manejar diferentes flujos de desarrollo. 
+            Esta es una característica útil, incluso esencial, pero a menudo se utiliza en exceso y trae problemas. Mantén el uso de ramas al mínimo. 
+            En particular, ten una línea principal: una única rama del proyecto actualmente en desarrollo.
+        
+Automatizar la compilacion
+    - Sin embargo, como la mayoría de las tareas en esta parte del desarrollo de software, puede ser automatizado - y como resultado debe 
+        ser automatizado. Pedir a la gente que escriba comandos extraños o que haga clic en los cuadros de diálogo es una pérdida de tiempo y un caldo 
+        de cultivo para los errores.
+
+    - Un error común es no incluir todo en la construcción automatizada. La construcción debe incluir la obtención del esquema de la base de datos del 
+        repositorio y su lanzamiento en el entorno de ejecución. 
+
+    - Una buena manera de detectar los errores de forma más rápida y eficiente es incluir pruebas automatizadas en el proceso de construcción. 
+        Las pruebas no son perfectas, por supuesto, pero pueden detectar muchos errores, los suficientes para ser útiles. 
+        En particular, el auge de la Programación Extrema (XP) y el Desarrollo Dirigido por Pruebas (TDD) han contribuido en gran medida 
+        a popularizar el autodiagnóstico del código y, como resultado, mucha gente ha visto el valor de esta técnica.
+
+    - Como se ha dicho a menudo: las pruebas no demuestran la ausencia de errores. Sin embargo, la perfección no es el único punto en el que se amortiza 
+        una construcción con autoprueba. Las pruebas imperfectas, ejecutadas con frecuencia, son mucho mejores que las pruebas 
+        perfectas que nunca se escriben.
+
+Todo el mundo se compromete con la línea principal cada día
+    - La integración tiene que ver sobre todo con la comunicación. La integración permite a los desarrolladores informar a otros desarrolladores de 
+        los cambios que han realizado. La comunicación frecuente permite que la gente se entere rápidamente a medida que se desarrollan los cambios.
+
+    - Al igual que con cualquier ciclo de confirmación, el desarrollador primero actualiza su copia de trabajo para que coincida con la línea principal, 
+        resuelve cualquier conflicto con la línea principal, y luego construye en su máquina local. Si la construcción pasa, 
+        entonces son libres de comprometerse con la línea principal. Esto permite descubrir rapidamente si hay un conflicto entre desarrolladores.
+
+    - Cada commit debe construir la línea principal en una máquina de integración
+        Usando commits diarios, un equipo obtiene frecuentes construcciones probadas. 
+        Esto debería significar que la línea principal se mantiene en un estado saludable.
+
+    - Como resultado, deberías asegurarte de que las compilaciones regulares se realicen en una máquina de integración y sólo si esta construcción 
+        de integración tiene éxito, el commit debería considerarse hecho. Dado que el desarrollador que hace el commit es responsable de esto, 
+        ese desarrollador necesita monitorear la construcción de la línea principal para poder arreglarla si se rompe.
+
+    - El enfoque de construcción manual es el más sencillo de describir. Esencialmente es una cosa similar a la construcción local que un desarrollador 
+        hace antes de la confirmación en el repositorio. El desarrollador va a la máquina de integración, comprueba la cabeza de la línea principal 
+        (que ahora alberga su última confirmación) y pone en marcha la construcción de integración. Sigue el progreso, y si la construcción tiene éxito, 
+        ha terminado con su confirmación.
+
+    - Un servidor de integración continua actúa como un monitor del repositorio. Cada vez que un commit contra el repositorio finaliza, el servidor 
+        comprueba automáticamente las fuentes en la máquina de integración, inicia una construcción, y notifica al committer el resultado de la construcción. 
+        El committer no ha terminado hasta que recibe la notificación - normalmente un correo electrónico.
+
+Arreglar inmediatamente las compilaciones rotas
+    - Una parte clave de hacer una construcción continua es que si la construcción de la línea principal falla, tiene que ser arreglada de inmediato. 
+        El objetivo de trabajar con CI es desarrollar siempre sobre una base estable conocida. No es malo que la compilación principal se rompa, 
+        aunque si sucede todo el tiempo sugiere que la gente no está siendo lo suficientemente cuidadosa con la actualización y la compilación local 
+        antes de un commit.
+    
+    - La forma más rápida de arreglar la compilación es revertir el último commit de la línea principal, devolviendo el sistema a la última compilación 
+        buena conocida. Ciertamente, el equipo no debe tratar de hacer ninguna depuración en una línea principal rota. A menos que la 
+        causa de la rotura sea inmediatamente obvia, sólo hay que revertir la línea principal y depurar el problema en una estación de trabajo de desarrollo.
+    
+Mantenga la construcción rápida
+    - El objetivo de la integración continua es proporcionar una respuesta rápida.
+
+    - Probablemente el paso más crucial es empezar a trabajar en la creación de un canal de despliegue.
+        + Un ejemplo simple de esto es una tubería de despliegue de dos etapas. La primera etapa haría la compilación 
+            y ejecutaría las pruebas que son más pruebas unitarias localizadas con la base de datos completamente aislada. 
+            Estas pruebas pueden ejecutarse muy rápidamente, manteniéndose dentro de la pauta de diez minutos. Sin embargo, 
+            no se encontrarán los errores que impliquen interacciones a mayor escala, especialmente los que afecten a la base de 
+            datos real. La segunda etapa de construcción ejecuta un conjunto diferente de pruebas que afectan a la base de datos real 
+            y que implican un comportamiento más completo. Este conjunto puede tardar un par de horas en ejecutarse.
+        + Si la compilación secundaria detecta un error, es una señal de que la compilación confirmada podría hacer otra prueba. 
+            En la medida de lo posible, hay que asegurarse de que cualquier fallo en la fase posterior conduzca a nuevas pruebas 
+            en la compilación de la confirmación que habrían detectado el fallo, de modo que el fallo se mantiene en la compilación de la confirmación.
+
+Prueba en un clon del entorno de producción
+    - El objetivo de las pruebas es eliminar, en condiciones controladas, cualquier problema que el sistema vaya a tener en producción. 
+        Una parte importante de esto es el entorno en el que se ejecutará el sistema de producción. Si se realizan las pruebas en un 
+        entorno diferente, cada diferencia supone un riesgo de que lo que ocurre en las pruebas no ocurra en producción.
+
+Facilite a cualquiera la obtención del último ejecutable
+    - Cualquier persona involucrada en un proyecto de software debería poder obtener el último ejecutable y ser capaz de ejecutarlo: 
+        para demostraciones, pruebas exploratorias o simplemente para ver qué ha cambiado esta semana. 
+
+Todo el mundo puede ver lo que está pasando  
+    - La integración continua tiene que ver con la comunicación, por lo que hay que asegurarse de que todo el mundo pueda ver 
+        fácilmente el estado del sistema y los cambios que se han realizado en él.
+
+Automatizar el despliegue
+    - Para realizar la integración continua se necesitan varios entornos, uno para ejecutar las pruebas de confirmación, 
+        uno o más para ejecutar las pruebas secundarias. Dado que estás moviendo los ejecutables entre estos entornos varias veces 
+        al día, querrás hacerlo de forma automática. Así que es importante tener scripts que te permitan desplegar 
+        la aplicación en cualquier entorno fácilmente.
+
+    - Si despliegas en producción, una capacidad automatizada adicional que deberías considerar es la reversión automatizada.
+
+Beneficios de la integración continua
+    - El mayor y más amplio beneficio de la integración continua es la reducción del riesgo.
+
+    - integración diferida -> se pierde de vista el proceso
+        + La integración continua resuelve completamente este problema. 
+            No hay integración larga, se elimina completamente el punto ciego. 
+            En todo momento sabes dónde estás, qué funciona, qué no, los bugs pendientes que tienes en tu sistema.
+
+    - La integracion continua no elimina errores, pero los hace mucho mas faciles de encontrar y eliminar.
+    - Impide la acumulacion de fallos
+    - La integracion continua -> elimina una de las mayores barreras para el despliegue frecuente.
+
+Introducción a la integración continua
+    - Conseguir la construccion automatizada
+    - Pruebas automatizadas en la construccion
+    - Acelerar la construccion de commits
+    - En un nuevo proyecto -> primero la integracion continua
+    
+---------------------------------------------------------------------------------------------------------------------
+"Estado del arte y tendencias en Test-Driven Development", Carlos Fontela
+
+    - TDD
+        + automatización
+        + Test-first
+        + Refactorizacion
+        + “Nunca escribas nueva funcionalidad sin una prueba que falle antes”
+        + “Si no puedes escribir una prueba para lo que estás por codificar, entonces no deberías estar pensando en codificar”
+
+    - Corrimiento TDD a UTDD
+    - Ventaja
+        + Las pruebas en código sirven como documentación del uso esperado de las clases y métodos en cuestión. 
+        + Las pruebas en código indican con menor ambigüedad lo que las clases y métodos deben hacer.
+        + Las pruebas escritas con anterioridad ayudan a entender mejor la clase que se está creando, antes de escribirla. 
+        + Las pruebas escritas con anterioridad suelen incluir más casos de pruebas negativas que las que escribimos a posteriori. 
+    - Contras
+        + Tiende a basar todo el desarrollo en la programación de pequeñas unidades, sin una visión de conjunto.
+        + Relacionado con lo anterior, muchos han criticado la pretensión de que la arquitectura evolucione sola, sin hacer nada de diseño previo.
+        + No permite probar interfaces de usuario ni comportamiento esperado por el cliente. 
+        + Es una práctica centrada en la programación, con lo cual no sirve para especialistas del negocio ni testers.
+        + Si bien las refactorizaciones son más sencillas con pruebas automatizadas, los cambios de diseño medianos y grandes 
+            suelen exigir cambios en las pruebas unitarias. 
+
+    - Los primeros intentos de pruebas de integración 
+        + Dummy object -> (literalmente, “objeto ficticio”): son aquellos que deben generarse para
+            probar una funcionalidad, pero que no se usan en la prueba. Por ejemplo, cuando un
+            método necesita un objeto como parámetro, pero éste no se usa en la prueba.
+
+        + Test Stub -> (literalmente, “muñón”): son los que reemplazan a objetos reales del sistema,
+            generalmente para generar entradas de datos o impulsar funcionalidades del objeto que
+            está siendo probado. Por ejemplo, objetos que invocan mensajes sobre el objeto sometido a prueba.
+
+        + Test Spy -> (literalmente, “espía”): se usan para verificar los mensajes que envía el objeto
+            que se está probando, una vez corrida la prueba. 
+
+        + Mock object -> (literalmente, “objeto de imitación”): son objetos que reemplazan a objetos
+            reales del sistema para observar los mensajes enviados a otros objetos desde el objeto receptor. 
+
+        + Fake object -> (literalmente, “objeto falso”): son objetos que reemplazan a otro objeto del
+            sistema con una implementación alternativa. Por ejemplo, un reemplazo de una base de
+            datos en disco por otra en memoria por razones de desempeño. 
+
+    - ATDD -> TDD ampliado
+        + Acceptance Test Driven Development
+        + Se basa en la misma noción de Test-First de TDD, pero en vez de escribir pruebas de unidad, que escriben y usan los programadores,
+            se escriben pruebas de aceptación de usuarios, en conjunto con ellos. La idea es tomar cada requerimiento, en la forma de una 
+            user story, construir varias pruebas de aceptación del usuario, y a partir de ellas construir las pruebas automáticas 
+            de aceptación, para luego escribir el código. 
+
+    - BDD -> TDD mejorado
+        + Behavour Driven Development
+        + En vez de pensar en términos de pruebas, deberíamos pensar en términos de especificaciones o comportamiento.
+        + Las primeras herramientas que surgieron para realizar BDD, pusieron mucho énfasis en los
+            ambios de nombres, suprimiendo todos los métodos test y cambiándolos por should o must, de
+            modo que parecieran especificaciones escritas en un lenguaje de programación. 
+        + Se asoció BDD a mejores prácticas, como la de escribir una clase de prueba por
+            requerimiento (user story o caso de uso) y un método por aserción.
+        + Criticas
+            - La que dice que BDD es sólo un cambio de nombre a TDD, cuidando un poco el
+                lenguaje. Esto se puede ver en innumerables sitios web y blogs de programadores.
+            - La que dice que BDD es simplemente TDD bien hecho
+
+    - BDD vs. ATDD
+        + BDD surge como mejora de TDD, mientras que ATDD es una ampliación
+        + No está demasiado claro el límite entre ATDD y BDD. En el fondo, es un tema más
+            bien filosófico y de tipos de herramientas.
+        + Mientras que en BDD solemos escribir los user stories en forma tradicional, en las herramientas
+            de ATDD se enfatiza que las pruebas de aceptación también las escriban los clientes o
+            especialistas de negocio.
+        + En definitiva, UTDD facilita el buen diseño de clases, mientras que ATDD y BDD facilitan
+            construir el sistema correcto. 
+        + Coincidencias en sus objetivos generales
+            - Mejorar las especificaciones 
+            - Facilitar el paso de especificaciones a pruebas
+            - Mejorar la comunicación entre los distintos perfiles: clientes, usuarios, analistas,
+                desarrolladores y testers
+            - Mejorar la visibilidad de la satisfacción de requerimientos y del avance
+            - Disminuir el gold-plating
+            - Usar un lenguaje único, más cerca del consumidor
+            - Focalizar en la comunicación, no en las pruebas
+            - Simplificar las refactorizaciones o cambios de diseño 
+
+        + Bertrand Meyer -> Su postura es que, si
+            bien se pueden derivar pruebas individuales de los contratos, es imposible el camino inverso, ya
+            que miles de pruebas individuales no pueden reemplazar la abstracción de una especificación contractual 
+
+    - STDD: ejemplos como pruebas y pruebas como ejemplos
+        + Story-Test Driven Development
+        + La idea subyacente es usar ejemplos como parte de las especificaciones, y que los mismos sirvan
+            para probar la aplicación, haciendo que todos los roles se manejen con ejemplos idénticos.
+        +  Ventajas 
+            • Sirven como herramienta de comunicación.
+            • Se expresan por extensión, en vez de con largas descripciones y reglas en prosa,
+                propensas a interpretaciones diversas.
+            • Son más sencillos de acordar con los clientes, al ser más concretos.
+            • Evitan que se escriban ejemplos distintos, una y otra vez, con su potencial divergencia.
+            • Sirven como pruebas de aceptación. 
+        + Enfoque tradicional vs STDD
+            - Tradicional
+                • El analista de negocio hace las veces de “traductor” entre los clientes, por un lado, y los
+                    desarrolladores y testers, por el otro. Escucha expectativas, deseos y necesidades, y con
+                    ellos elabora especificaciones de requerimientos y los prioriza.
+                • El tester es quien valida el producto contra las especificaciones. Recibe especificaciones,
+                    elabora casos de prueba en base a escenarios y ejecuta casos de prueba. En general no
+                    habla directamente con el cliente, sino que usa como interlocutor al analista.
+                • El desarrollador es el diseñador y constructor del producto. Recibe especificaciones,
+                    elabora un diseño y lo plasma en código, para luego ejecutar pruebas unitarias y de
+                    integración técnicas. Como ocurre con el tester, tampoco habla directamente con el
+                    cliente, sino a través del analista.
+                • El cliente o usuario, por su lado, sólo habla con el analista.  
+            
+            - STDD
+                • El analista de negocio debe ser un facilitador de intercambio de conocimiento.
+                • El desarrollador es uno más de los participantes en la elaboración de los escenarios y
+                    ejemplos, que luego le sirven para desarrollar el producto y las pruebas técnicas.
+                • El tester es otro de los participantes en la elaboración de los escenarios y ejemplos, que
+                    luego le sirven para probar la aplicación.
+                • El cliente tiene un rol más activo, como autor principal de pruebas de aceptación con
+                    ejemplos, asistido por el resto de los interesados.
+        
+        + Limitaciones
+            - No todo requerimiento puede llevarse a ejemplos en el sentido de STDD. Por
+                ejemplo, si una aplicación debe generar números al azar, los ejemplos que podamos escribir
+                nunca van a servir como pruebas de aceptación.
+            - A veces ocurre que al plantear los requerimientos como ejemplos se pierde la visión global del
+                proyecto.
+            - Si partimos de las características deseables de los requerimientos, podemos analizar qué tan bien
+                se ajusta STDD a las mismas: 
+
+                • Completo: no se puede lograr, por el mismo hecho de que se trata de ejemplos concretos.
+                • Consistente: se puede lograr trabajando correctamente en el taller de la iteración.
+                • Correcto: se puede lograr trabajando correctamente en el taller de la iteración.
+                • Modificable: ajuste perfecto, las modificaciones se llevan a los ejemplos. 
+                • Conciso: no se puede garantizar, y en principio se contradice con la noción de especificación por extensión.
+                • Rastreable: se puede lograr entre pruebas y código solamente.
+                • No ambiguo: ajuste perfecto por la naturaleza de los ejemplos.
+                • Comprensible: ajuste perfecto por la naturaleza de los ejemplos.
+                • Validable contra las expectativas de los usuarios: ajuste perfecto.
+                • Verificable contra las especificaciones: ajuste perfecto.
+                • Independiente: se puede lograr trabajando correctamente en el taller de la iteración.
+                • Adecuado nivel de abstracción: no se puede garantizar, y en principio se contradice con
+                    la noción de especificación por extensión. 
+
+        + Formatos de las especificaciones -> : tablas, texto libre, diagramas y código
+
+    - NDD 
+        + El problema del comportamiento
+            - Ley de Demeter  -> pretende que los objetos revelen lo mínimo posible de su estado interno, dando a conocer solamente su comportamiento. 
+            - UTDD suelen verificar el comportamiento de los objetos, verificando el cambio de estado provocado por determinados mensajes 
+                recibidos por ellos, o los valores devueltos como consecuencia del envío de otros mensajes.
+            - Problemas
+                + Para chequear el estado en que queda un objeto luego del envío de un mensaje, hay ocasiones en que necesitamos métodos 
+                    de consulta que la clase del objeto no tiene, y nos vemos obligados a cambiar la interfaz de la misma solamente 
+                    para las pruebas. Esto, de nuevo, es contrario al principio del encapsulamiento. 
+                + En primer lugar, no siempre el comportamiento de un objeto puede evaluarse por sus cambios de
+                    estado o por los valores que devuelve. Ej un mail
+            - Solucion -> NDD
+                + Propositos 
+                    • Mejorar el código con términos de dominio.
+                    • Preservar el encapsulamiento.
+                    • Reducir dependencias.
+                    • Clarificar las interacciones entre clases. 
+
+                + Principal diferencia con UTDD ->  es que pretende definir de antemano qué mensajes emitirá el objeto sometido a prueba cuando
+                    reciba un mensaje en particular. NDD incentiva el uso de mocks.
+            
+                + Recomendaciones
+                    • Generar objetos ficticios solamente para las clases que podamos cambiar. Las clases
+                        utilitarias o que no están bajo nuestro control deberíamos usarlas como están.
+                    • Sólo generar Mock Objects a partir de interfaces y no de clases, porque nos interesa la
+                        comunicación entre objetos, no su estado ni cómo implementan el comportamiento.
+                    • Generar objetos ficticios sólo para los vecinos inmediatos del objeto receptor.
+                    • Evitar imponer un orden de invocación cuando esto no es necesario. En general,
+                        especificar sólo lo que se necesita.
+                    • Evitar el uso de métodos de consulta. Esta recomendación no es de cumplimiento
+                        forzoso, pero nos va a conducir a un diseño más basado en el comportamiento.
+                    • Si se usan muchos Mock Objects en una misma prueba, es un indicador de que el objeto
+                        receptor tiene demasiadas responsabilidades. 
+
+                + Beneficios
+                    - al trabajar sobre la base de protocolos, además definidos en la forma restringida que necesita cada funcionalidad, se suele llegar a
+                        interfaces bien angostas.
+                    - hace que tendamos a escribir código de pruebas menos acoplado a implementaciones particulares.
+                    - promueve el ocultamiento de implementación, ya que impone un protocolo para los objetos receptores, pero no dice cómo implementarlo. 
+
+                + Contras
+                    - es sensible a las refactorizaciones de los objetos colaboradores.
+                    - NDD usado por gente inexperta puede empeorar el acoplamiento y la localización de responsabilidades. 
+                    - es costoso tener que crear Mock Objects realistas para todas las interfaces posibles del objeto a desarrollar. 
+    
+    - Pruebas e interfaz de usuario
+        + Pruebas automatizadas muy costosas y de desactualizan con facilidad
+        + De todas formas no puede no probarse
+        + Existe software para "grabar las pruebas"
+
+    - La falta de una visión integral 
+        + Sin embargo, todavía falta, para considerar a TDD una técnica completa, que las pruebas de
+            interacción sobre la interfaz de usuario puedan integrarse a las pruebas de comportamiento, a
+            nivel de modelo de negocio. 
+            Pero las pruebas de interacción, automáticas o no, no tienen ninguna relación con el
+            comportamiento en este contexto.
+            De alguna manera, esta es una consecuencia, que no debería sorprender, de haber separado el
+            modelo de la interfaz con el usuario. Es decir, al desacoplar ambas incumbencias, también
+            desacoplamos las pruebas, y eso dificulta la integración entre ambas. 
+
+    - Limitaciones de las pruebas de interacción
+        • Sensibilidad al comportamiento: los cambios de comportamiento provocan cambios
+            importantes en la interfaz de usuario, que hacen que las pruebas de interacción dejen de funcionar.
+        • Sensibilidad a la interfaz: aún cambios pequeños a la interfaz de usuario suelen provocar
+            que las pruebas dejen de correr y deban ser cambiadas.
+        • Sensibilidad a los datos: cuando hay cambios en los datos que se usan para correr la
+            aplicación, los resultados que ésta arroje van a cambiar, lo que hace que haya que generar
+            datos especiales para probar.
+        • Sensibilidad al contexto: igual que con los datos, las pruebas pueden ser sensibles a
+            cambios en dispositivos externos a la aplicación. 
+        + Lentitud de las pruebas
+
+        + Cuidados
+            • Tratar de no probar en forma conjunta, o como parte del mismo juego de pruebas, la
+                lógica de negocio y la lógica de interacción.
+            • Evitar hacer este tipo de pruebas en forma automática si la lógica de negocio es muy
+                cambiante.
+            • Dado que estas pruebas son más frágiles que las de comportamiento, hay que volver a
+                generarlas cada tanto (la esperanza de vida de estas pruebas es menor que la de las de
+                BDD o STDD, aunque puede ser similar a las de NDD).
+
+    - ¿Que automatizar? ->  las de cliente, las de componentes, las de unidad y las de propiedades, se pueden y conviene automatizarlas
+        + Clasificadas:
+     +       • Pruebas de cliente: explicitan la intención del analista de negocio y hacen las veces de especificaciones ejecutables.
+     +       • Pruebas de componentes: definen el diseño del sistema y explicitan la intención del arquitecto; a veces se las llama pruebas de integración técnicas.
+     +       • Pruebas de unidad: definen el diseño del código y explicitan la intención del desarrollador.
+            • Pruebas de usabilidad: definen si el sistema es cómodo de usar (y aprender a usar) para sus usuarios.
+            • Pruebas exploratorias: definen si el sistema es consistente desde el punto de vista del cliente.
+     +       • Pruebas de propiedades: especifican atributos de calidad, definiendo si el sistema es seguro, escalable, robusto, etc.  
+
+        + pruebas de usabilidad y exploratorias solo son posibles en forma manual.
+    
+    - Formas de automatizacion
+        • Mediante la interfaz de usuario, simulando un usuario humano
+        • Mediante una interfaz programática (API) 
+
+    - Herramientas de TDD más allá de xUnit 
+    - Herramientas para crear dobles
+    - Herramientas que ponen el énfasis en BDD y STDD   
+    - Herramientas para pruebas de interacción 
+    
+    - TDD y enfoques metodológicos 
+        + TDD nació con un enfoque metodológico que era el de XP, por otro lado bastante laxo. Sin
+            embargo, esto ha ido evolucionando, y en esa evolución mucho tuvo que ver la historia de las
+            herramientas y técnicas particulares.
+        + UTDD supone un trabajo en forma bottom-up por su propia filosofía de diseñar pequeñas
+            porciones de código.
+        + La ventaja de cualquiera de los enfoques top-down es que podemos atacar de a un requerimiento
+            por vez, lo cual está muy alineado con las ideas de los métodos ágiles, que buscan cerrar cuanto
+            antes pequeñas funcionalidades, en forma incremental
+
+    - Trabajos que fueron analizados 
+
+    - Conclusiones extraídas de la evidencia analizada
+        + Mejores resultados en tiempo y calidad
+        + Mayor tiempo de desarrollo
+        + Mejoras en la calidad externa
+        + Descenso en la cantidad de errores introducidos
+        + Descenso tiempo de correcion de errores
+        + Reduccion en tamaño de codigo
+        + Deseo de muchos desarrolladores de aplicar TDD en mayor medida
+
+    - Estudios sobre variantes de TDD más allá de UTDD
+        + Con STDD se realizan pruebas de regresion a menor costo. Pero no demuestra compensar sus beneficios.
+        + Mejores tiempos
+        + Mejor comunicacion
+        + Mayor conciencia
+    
+    - Limitaciones de TDD y prácticas afines
+        + Fue pensadado para construcciones desde cero
+        + Problemas ala hora de el diseño y interface de usuario
+        + Lento a la hora de operaciones contra bases de datos
+        + Complejidad a la hora de infraestructura de servicios web
+
+    - Conclusiones
+        Las ventajas que ofrece TDD, de nuevo según Freeman y Pryce, son:
+            • Clarifica los criterios de aceptación de cada requerimiento a implementar.
+            • Al hacer los componentes fáciles de probar, tiende a bajar el acoplamiento entre los mismos.
+            • Nos da una especificación ejecutable de lo que el código hace.
+            • Nos da una serie de pruebas de regresión completa.
+            • Facilita la detección de errores mientras el contexto está fresco en nuestras mentes.
+            • Nos dice cuándo debemos dejar de programar, disminuyendo el gold-plating y características innecesarias. 
+        
+        UTDD -> está típicamente basado en diseño de clases, en el chequeo del estado de los objetos luego de un mensaje y se basa en un esquema bottom-up.
+        BDD y STDD ->  se basan en diseño integral, enfocándose en el chequeo de comportamiento y de en el desarrollo top-down.
+        NDD -> se encuentra a mitad de camino de ambos enfoques. 
+        UTDD y NDD apuntan a la calidad interna, mientras que BDD y STDD apuntan a la externa.      
+---------------------------------------------------------------------------------------------------------------------
+"Using Java Reflection", Glen McCluskey
+
+    - Reflexion -> La reflexión es una característica del lenguaje de programación Java. Permite a un programa Java en ejecución 
+        examinar o "introspeccionar" sobre sí mismo, y manipular propiedades internas del programa. Por ejemplo, es posible 
+        que una clase Java obtenga los nombres de todos sus miembros y los muestre.
+    - > Resumen
+        La reflexión en Java es útil porque admite la recuperación dinámica de información sobre clases y estructuras de datos por su 
+        nombre, y permite su manipulación dentro de un programa Java en ejecución. Esta característica es extremadamente potente y no 
+        tiene equivalente en otros lenguajes convencionales como C, C++, Fortran o Pascal.
+    
+---------------------------------------------------------------------------------------------------------------------

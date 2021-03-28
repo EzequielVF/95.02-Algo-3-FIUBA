@@ -1,0 +1,257 @@
+Objeto -> Una entidad que existe en tiempo de ejecucion y que puede enviar y recibir mensajes.
+un Objeto tiene "responsabilidades" algo asi como un contrato.
+
+Delegacion -> Cuando un objeto, para responder un mensaje, envia mensajes a otros objetos, decimos que delega ese comportamiento en otros objetos.
+                - Es un mecanismo de reutilización selectivo.
+
+Comportamiento -> Las posibles respuestas a los mensajes recibidos por un objeto.
+
+Metodo -> Es la implementacion de la respuesta de un objeto a un mensaje.
+
+Encapsulamiento -> Cada objeto es responsable a responder los mensajes que recibe, pero no necesariamente como lo hace.
+                    - Esto permite que al cambiar partes de la implementacion las otras partes se mantengan funcionales.
+                    - Es la propiedad del objeto de evitar que los usuarios (desarrolladores) puedan dejarlo en un incoherente a través de su interfaz pública.
+                    - Es la propiedad del objeto de ocultar su implementación.
+
+Tell, don´t ask -> Los objetos deben mantener su propio comportamiento, sin que manipulemos su estado desde afuera.
+
+Polimorfismo -> Capacidad de respuesta de diferentes objetos a un mismo mensaje.
+
+Clase -> Conjunto de objetos que, por lo menos, tienen el mismo comportamiento.
+
+Atributo -> Una Variable interna del objeto que sirve para almacenar parte del estado del mismo.
+
+Precondiciones -> En que estado debe estar el medio antes de que un objeto reciba un mensaje. -> Responsabilidad del cliente.
+
+Excepcion -> Una Excepcion es un objeto que el receptor de un mensaje envia a su cliente como aviso de que el propio cliente no esta cumpliendo
+con alguna precondicion de ese mensaje. Deberia definirse una por cada precondicion.
+
+Postcondiciones -> Estado en el que debe quedar el medio como consecuencia de la ejecucion de un metodo. -> Responsabilidad del programador (chequearse con pruebas).
+
+Pruebas Unitarias -> Una prueba unitaria es una prueba que verifica que se responde claramente a una unica responsabilidad de un metodo.
+                -> Las pruebas unitarias nunca pueden ser suficientes para controlar la calidad de un producto.
+
+Invariantes -> Condiciones que siempre deben cumplir un objeto durate su existencia.
+
+TDD -> Test-Driver Development
+    -> Pruebas primero -> las pruebas se convierten en especificaciones de lo que se espera como respuesta del objeto ante el envio de un mensaje -> siempre actualizadas (buena documentacion).
+    -> Minimiza el condicinamiento del autor.
+    -> Permite especificar el comportamiento independientemente de la implementacion.
+    -> Deja un conjunto de pruebas de regresion.
+
+POO -> sirve para manejar la complejidad
+    -> Encapsulamiento  --> Cada componente debe tener el comportamiento esperado. --> Nuestro desarrollo no depende de la manera en que esta implementado.
+    -> Contratos     +  --> que nos ofrece cada componenente y como conectarnos con el.
+    ---> ABSTRACCION
+
+Objeto receptor -> aquel que recibe un mensaje en un escenario de interaccion entre objetos.
+
+Objeto cliente -> aquel que envia un mensaje en un escenario de interaccion entre objetos.
+
+Dependencia -> Un Objeto depende de otro cuando debe conocerlo para poder enviarle un mensaje
+            Tipos
+            -> El objeto se envia como argumento.
+            -> Se obtiene como respuesta al envio de un mensaje.
+            -> Asociacion -> Forma de dependencia en la que el cliente tiene almacenada una referencia al servidor.
+
+Programacion por diferencia -> Cuando indicamos que parte de la implementacion de un objeto esta definida en otro objeto, y por lo tanto solo implementamos las diferencias especificas.
+                            -> Esto se llama Herencia -> es una relacion entre clases
+
+Herencia y POO  -> Si hay un comportamiento en la clase madre, sus clases hijas pueden usar ese comportamiento.
+                -> Se necesitala condicion "es un"
+                -> Composicion/agregacion
+
+Redefinicion -> Para Implementar de modo diferente la respuesta a un mismo mensaje.  
+
+Clases abstractras  -> no pueden tener instancias en forma directa.
+                    -> clases para agrupar comportamientos y luego aplicar herencia.
+
+Metodos abstractos  -> No lo implementamos en una clase
+                    -> Pero deseamos que todas las clases descendientes puedan entender el mensaje.
+
+Visibilidad -> Importante para garantizar encapsulamiento.
+            -> Atributos y metodos privados -> solo los puede usar el objeto receptor en su clase.
+            -> Atributos y metodos publicos -> se los puede usar desde cualquier lado.
+            -> Atributos y metodos protegidos -> se los puede usar desde el objeto receptor en su clase y en clase derivadas.
+
+            Smalltalk -> metodos publicos / atributos protegidos.
+
+Vinculacion tardia y polimorfimos -> Se plantea que el polimorfismo funciona porque la decision del metodo a invocar se toma en tiempo de ejecucion y no antes.
+
+Interfaz -> Son como clases 
+            -> abstractras
+            -> solo metodos abstractos
+            -> sin atributos
+
+Protocolos -> Son grupos de firmas de metodos
+            -> indican la manera de comunicarse con los objetos
+
+Entropia creciente -> todo codigo va empeorando su calidad con el tiempo.
+
+Refactorizacion -> mejorar codigo, haciendolo mas comprensible sin cambiar funcionalidad.
+                -> modificar estructura interna sin modificar comportamiento observable.
+                -> Eliminar codigo duplicado
+                -> introducir polimorfismo
+¿cuando?                    -> antes de modificar codigo existente
+                            -> despues de incorporar nueva funcionalidad
+                            -> antes de optimizar
+                            -> durante depuraciones
+                            -> consecuencia de revisiones de codigo
+
+Bad smells in code -> son indicadores de que algo esta mal, y se solucionan con refactorizaciones.
+
+Generacidad solo en tiempo de compilacion -> no hay informacion del tipo completa en tiempo de ejecucion.
+        -> Lleva la idea del tipeo estatico a las colecciones.
+
+UML -> herramienta de modelo
+    -> para discutir diseños antes del codigo
+    -> para generar documentos que sirvan despues de la construccion
+
+XP -> EXTREME PROGRAMMING
+    -> llevar al extremo las buenas practicas de programacion y de sentido comun.
+    -> Pair PROGRAMMING
+    -> revisar codigo todo el tiempo
+    -> minimizar la documentacion que se guarda
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Principios de diseño orientado a objetos 
+
+- No repetir
+- Alta cohesión y bajo acoplamiento
+    - alta cohesion -> clases con pocas responsabilidades
+    - bajo acoplamiento -> cada clase depende de pocas clases mas
+- Unica responsabilidad
+    - Encapsulamiento de lo que varia
+- Principio abierto-cerrado -> permitir agregar cosas sin tener que cambiar las ya existentes
+- Inversion de dependencia -> programar contra interfaces, no contra implementaciones
+- Sustitucion de liskov -> que una clase hija pueda remplazar a la clase madre
+- Favorecer la delegacion sobre la herencia
+- Segregacion de la interfaz
+
+Problemas tipicos
+- Rigidez -> dificultad para cambiar cosas
+- Fragilidad -> cada cambio provoca errores en partes del codigo que no tienen que ver con el mismo
+- Repeticion innecesaria
+- ciclos muy anidados
+- codigo duplicado
+- metodos complejos
+- clases con varias responsabilidades
+- muchos ifs/switchs
+- largas secuencias de llamadas sucesivas a metodos
+- muchos chequeos de referencias nulas
+- clases de getters y setters
+- atributos no encapsulados
+- comentarios explicando codigo dificil de leer
+- tipos primitivos o basicos para conceptos diversos
+- metodos que usan caracteristicas de otras clases antes que de la suya
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Patrones de diseño
+
+Patrones de diseño -> Los patrones de diseño nos indican cómo utilizar clases y objetos de formas conocidas y  estudiadas, de modo de adaptarlos a 
+la resolución de parte de un problema o a un escenario particular.
+Patron -> es una solución no trivial a un problema en un determinado contexto. Para que sea  útil, debe ser una solución probada a un problema 
+que aparece con frecuencia. 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+La serialización es un proceso mediante el cual podemos convertir objetos de un programa en ejecución en flujos de bytes capaces de ser almacenados 
+en dispositivos, bases de datos o de ser enviados a través de la red y, posteriormente, ser capaces de reconstruirlos en los equipos donde sea necesario.
+Al hablar de “objetos”, no me refiero únicamente al significado que estos tienen en la POO; un objeto es cualquier estructura de datos, función o
+método que esté en memoria.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Persistencia -> hace referencia a la caracteristica que puede tener un dato o estado que le permite sobrevivir al proceso que lo creo.
+- Un ambiente orientado a objetos debe permitir que los objetos persistan, para mantener su vida mas alla de la vida de la aplicacion.
+    Este concepto nos permite que un objeto pueda ser usado en diferentes momentos a lo largo del tiempo, por el mismo programa o por otros,
+    como en diferentes instalaciones de hardware en el mismo momento.
+
+- Un objeto persistente es aquel que conserva su estado en un medio de almacenamiento permanente, pudiendo ser reconstruido por el mismo proceso que lo genero
+ u otro, de modo tal que al reconstruirlo se encuentre en el mismo estado en que se lo guardo.
+
+- objeto no persistente -> efimero o transitorio
+
+Tipos
+    -nativo -> provista por la plataforma
+        ventajas:
+            -> es nativa del lenguaje
+            -> resuelve referencias circulares
+
+        desventajas:
+            -> no es portable a otros lenguajes de manera sencilla
+            -> no es optima en cuanto a tamaño
+            -> la informacion en el archivo es binario
+            -> no es extensible ni reparable
+
+    -no nativo -> a traves de una biblioteca externa o programada a mano
+        -> Responsabilidad -> cada clase conoce como serializarse
+        -> Cada clase serializable tendra
+            - Un metodo serializar que devolvera un nodo XML
+            - Un constructor sobrecargado que recibira un nodo XML
+        -> Queda en manos del programador
+            -> Cuestiones de diseño
+                - Responsabilidad
+                - Formato
+                - Identidad de los objetos
+            -> Mayor versatilidad pero mas complejo
+
+
+    lo ideal es que cada clase tenga un metodo para guardar y otro para recuperar los objetos. -> conflicto en el principio de separacion de intereses
+
+serialización -> proceso que consiste en convertir la representacion de un objeto en un stream(flujo o secuencia) de bytes.
+deserializacion -> es el proceso de reconstruir un objetos a partir de un stream de bytes.
+
+formatos de serializacion
+    -formato propietario    -> formato propio
+                            -> mas eficiente en terminos de uso de almacenamiento y tiempo de traduccion
+                            -> solo sirve para comunicar aplicaciones basadas en la misma plataforma
+
+    -lenguaje estandar      ->  ej JSON
+                            -> Es el mas popular en intercambio de informacion
+                            -> Al ser formato de texto ocupa mas espacio y su estructura no propietaria precisa hacer transformaciones en terminos de computo
+
+Para persistir primero tengo que serializar
+Serializar no implica necesariamente persistir
+    puedo:
+            - enviar por red
+            - mantener en memoria
+            - enviar a una persona
+
+Serializacion en java
+    -> debe implementarse la interfaz Serializable
+    -> No tiene metodos
+    -> Sirve para avisarle a la maquina virtual que la clase puede serializarse
+    -> Todas las subclases de una clase serializable son serializables tambien
+    -> Por defecto, se serializan todos los atributos de un objeto que no posean el modificador transient (transitorio)
+    -> Si un objeto serializable tiene referencias a otro objeto serializable, tambien lo serializa
+    -> Si algun objeto del "arbol de objetos" a serializar no es serializable se lanza la excepcion NonSerializableException
+    -> Los objetos serializables deben tener un constructor sin parametros para poder ser deserializados correctamente.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Concurrencia -> es la composicion de la ejecucion de "cosas" independientes. Es sobre la estructura de los problemas, 
+    descomponer tareas en tareas mas pequeñas.
+
+Paralelismo -> es ejecutar tareas en simultaneo.
+
+Concurrencia no implica paralelismo
+
+Thread -> secuencia independiente de instrucciones ejecutandose dentro de un programa 
+    - para nosotros -> funcion o clase que se ejecuta de manera concurrente
+
+Problemas:
+    Race condition -> se da cuando varios threads pueden acceder a recursos compartidos (codigo). El resultado del programa depende de como se intercalen los threads.
+    Critical section -> seccion de codigo que necesita ser ejecutada en forma atomica por un solo hilo a la vez.
+
+Solucion -> sincronizacion
+    - Locks -> se basa en el uso de una variable de exclusion mutua (mutex)
+    - Monitores -> objetos thread-safe, sus metodos estan sincronizados (mutex)
+    - Conditional variable -> mecanismo de bloque con una señalizacion
+    - Semaforos ->
+
+    mas problemas: 
+    - Deadlock -> aparece cuando entre dos omas threads uno obtiene un recurso y no lo libera generando un bloqueo
+
+Como se implementa en java?
+ -> heredar thread (template method)
+ -> implementar Runnable -> max flexible
+
+ Consideraciones 
+    -> Debuggear es complicado
+    -> Agregar PrintIn() puede alterar el resultado
+    -> Demasiada sincronizacion perdemos la ventaja de usar threads
+    -> Poca sincronizacion genera errores dificiles de detectar
+    
